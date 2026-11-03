@@ -1,4 +1,4 @@
-
+<!-- 
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -70,6 +70,126 @@
             document.getElementById("alpha").innerHTML = event.alpha;
             document.getElementById("beta").innerHTML = event.beta;
             document.getElementById("gamma").innerHTML = event.gamma;
+        }
+    </script>
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Motion API</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: white;
+            color: black;
+        }
+
+        h1 {
+            margin-top: 30px;
+        }
+
+        .wynik {
+            margin: 15px auto;
+            padding: 10px;
+            width: 230px;
+            border: 1px solid black;
+            border-radius: 8px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Device Motion API</h1>
+
+    <div class="wynik">
+        <h2>Acceleration X</h2>
+        <p id="x">0</p>
+    </div>
+
+    <div class="wynik">
+        <h2>Acceleration Y</h2>
+        <p id="y">0</p>
+    </div>
+
+    <div class="wynik">
+        <h2>Acceleration Z</h2>
+        <p id="z">0</p>
+    </div>
+
+    <div class="wynik">
+        <h2>Rotation Alpha</h2>
+        <p id="alpha">0</p>
+    </div>
+
+    <div class="wynik">
+        <h2>Rotation Beta</h2>
+        <p id="beta">0</p>
+    </div>
+
+    <div class="wynik">
+        <h2>Rotation Gamma</h2>
+        <p id="gamma">0</p>
+    </div>
+
+    <button onclick="start()">Uruchom czujniki</button>
+
+    <script>
+        function start() {
+            if (!("DeviceMotionEvent" in window)) {
+                alert("Twoja przeglądarka nie obsługuje Device Motion API");
+                return;
+            }
+
+            if (typeof DeviceMotionEvent.requestPermission === "function") {
+                DeviceMotionEvent.requestPermission().then(function(zgoda) {
+                    if (zgoda === "granted") {
+                        window.addEventListener("devicemotion", pokaz);
+                    } else {
+                        alert("Brak zgody na czujniki");
+                    }
+                }).catch(function() {
+                    alert("Nie udało się uruchomić czujników");
+                });
+            } else {
+                window.addEventListener("devicemotion", pokaz);
+            }
+        }
+
+        function pokaz(event) {
+            let a = event.acceleration;
+            let r = event.rotationRate;
+
+            document.getElementById("x").innerHTML =
+                a.x === null ? "Brak danych" : a.x.toFixed(2);
+
+            document.getElementById("y").innerHTML =
+                a.y === null ? "Brak danych" : a.y.toFixed(2);
+
+            document.getElementById("z").innerHTML =
+                a.z === null ? "Brak danych" : a.z.toFixed(2);
+
+            document.getElementById("alpha").innerHTML =
+                r.alpha === null ? "Brak danych" : r.alpha.toFixed(2);
+
+            document.getElementById("beta").innerHTML =
+                r.beta === null ? "Brak danych" : r.beta.toFixed(2);
+
+            document.getElementById("gamma").innerHTML =
+                r.gamma === null ? "Brak danych" : r.gamma.toFixed(2);
         }
     </script>
 
