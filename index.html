@@ -77,7 +77,7 @@
 </html> -->
 
 
-
+<!-- 
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -190,6 +190,69 @@
 
             document.getElementById("gamma").innerHTML =
                 r.gamma === null ? "Brak danych" : r.gamma.toFixed(2);
+        }
+    </script>
+
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibration API</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: white;
+            color: black;
+        }
+
+        h1 {
+            margin-top: 40px;
+        }
+
+        button {
+            padding: 15px 25px;
+            margin: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+        }
+
+        button:active {
+            background: #1e40af;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Vibration API</h1>
+
+    <button onclick="navigator.vibrate(500)">
+        Wibruj
+    </button>
+
+    <button onclick="navigator.vibrate([300, 200, 300])">
+        Wibruj 2 razy
+    </button>
+
+    <button onclick="navigator.vibrate(0)">
+        Stop
+    </button>
+
+    <script>
+        if (!("vibrate" in navigator)) {
+            alert("Twoje urządzenie nie obsługuje wibracji.");
         }
     </script>
 
