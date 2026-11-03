@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Orientation</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: white;
+            color: black;
+        }
+
+        h1 {
+            margin-top: 30px;
+        }
+
+        .wynik {
+            margin: 20px auto;
+            padding: 15px;
+            width: 200px;
+            border: 1px solid black;
+            border-radius: 8px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Device Orientation API</h1>
+
+    <div class="wynik">
+        <h2>Alpha</h2>
+        <p id="alpha">0</p>
+    </div>
+
+    <div class="wynik">
+        <h2>Beta</h2>
+        <p id="beta">0</p>
+    </div>
+
+    <div class="wynik">
+        <h2>Gamma</h2>
+        <p id="gamma">0</p>
+    </div>
+
+    <button onclick="start()">Uruchom</button>
+
+    <script>
+        function start() {
+            if (typeof DeviceOrientationEvent.requestPermission === "function") {
+                DeviceOrientationEvent.requestPermission().then(function (zgoda) {
+                    if (zgoda === "granted") {
+                        window.addEventListener("deviceorientation", pokaz);
+                    }
+                });
+            } else {
+                window.addEventListener("deviceorientation", pokaz);
+            }
+        }
+
+        function pokaz(event) {
+            document.getElementById("alpha").innerHTML = event.alpha;
+            document.getElementById("beta").innerHTML = event.beta;
+            document.getElementById("gamma").innerHTML = event.gamma;
+        }
+    </script>
+
+</body>
+</html>
